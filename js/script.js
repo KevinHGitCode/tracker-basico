@@ -1,76 +1,5 @@
 let inicio = null;
-// Tema oscuro
-const temaBtn = document.getElementById('tema-btn');
-temaBtn.onclick = function() {
-  document.body.classList.toggle('dark');
-  localStorage.setItem('tema', document.body.classList.contains('dark') ? 'dark' : '');
-  temaBtn.innerText = document.body.classList.contains('dark') ? '☀️' : '🌙';
-};
-if (localStorage.getItem('tema') === 'dark') {
-  document.body.classList.add('dark');
-  temaBtn.innerText = '☀️';
-}
-
-// Ayuda
-const ayudaBtn = document.getElementById('ayuda-btn');
-const modalAyuda = document.getElementById('modal-ayuda');
-const closeAyuda = document.getElementById('closeAyuda');
-ayudaBtn.onclick = function() { modalAyuda.style.display = 'block'; };
-closeAyuda.onclick = function() { modalAyuda.style.display = 'none'; };
-
-// Modal
-const modal = document.getElementById('modal');
-const closeModalBtn = document.getElementById('closeModal');
-const modalAgregarBtn = document.getElementById('modal-agregar');
-
-function abrirModal() {
-  modal.style.display = 'block';
-}
-function cerrarModal() {
-  modal.style.display = 'none';
-  document.getElementById('modal-dia').value = '';
-  document.getElementById('modal-inicio').value = '';
-  document.getElementById('modal-fin').value = '';
-  document.getElementById('modal-actividad').value = '';
-}
-
-closeModalBtn.onclick = cerrarModal;
-modalAgregarBtn.onclick = function() {
-  const dia = document.getElementById('modal-dia').value;
-  const inicioHora = document.getElementById('modal-inicio').value;
-  const finHora = document.getElementById('modal-fin').value;
-  const actividad = document.getElementById('modal-actividad').value.trim();
-  if (!dia || !inicioHora || !finHora || !actividad) {
-    alert('Completa todos los campos.');
-    return;
-  }
-  // Calcular duración
-  const [h1, m1] = inicioHora.split(":").map(Number);
-  const [h2, m2] = finHora.split(":").map(Number);
-  let min1 = h1 * 60 + m1;
-  let min2 = h2 * 60 + m2;
-  if (min2 < min1) min2 += 24 * 60; // Soporta sesiones que cruzan medianoche
-  const duracionMin = min2 - min1;
-  const duracion = `${Math.floor(duracionMin / 60)}h ${duracionMin % 60}m`;
-  const registro = {
-    fecha: new Date(dia).toLocaleDateString(),
-    inicio: inicioHora,
-    fin: finHora,
-    duracion: duracion,
-    actividad: actividad
-  };
-  guardarRegistro(registro);
-  mostrarRegistros();
-  cerrarModal();
-};
-
-window.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') {
-    abrirModal();
-  }
-});
-
-function iniciar() {
+// Este archivo ya no es necesario. Toda la lógica ha sido migrada a sesiones.js, modals.js, darkTheme.js y registroManual.js
   const actividad = document.getElementById('actividad').value.trim();
   if (actividad === "") {
     alert("Ingresa una actividad.");
@@ -78,7 +7,7 @@ function iniciar() {
   }
   inicio = new Date();
   alert("Iniciado a las " + inicio.toLocaleTimeString());
-}
+// ...existing code...
 
 function finalizar() {
   if (!inicio) {
