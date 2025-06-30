@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Registro de Horas</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>⏰ Registro de Horas</h1>
+  <div class="registro">
+    <input type="text" id="actividad" placeholder="Actividad">
+    <button onclick="iniciar()">Iniciar</button>
+    <button onclick="finalizar()">Finalizar</button>
+  </div>
+  <div id="resumen"></div>
+  <!-- Botón de ayuda abajo a la izquierda -->
+  <button id="ayuda-btn" title="Ayuda">❓</button>
+  <!-- Modal de ayuda -->
+  <div id="modal-ayuda" class="modal">
+    <div class="modal-content ayuda">
+      <span class="close" id="closeAyuda">&times;</span>
+      <h2>Ayuda e Instrucciones</h2>
+      <ul>
+        <li>Haz clic en una sesión para seleccionarla. Usa Ctrl/Cmd para selección múltiple, Shift para rango.</li>
+        <li>Presiona <b>Suprimir</b> o <b>Backspace</b> para eliminar las seleccionadas (requiere contraseña <b>delete</b>).</li>
+        <li>Presiona <b>Enter</b> sobre una sola sesión seleccionada para editarla.</li>
+        <li>Presiona <b>Escape</b> para abrir el modal y agregar una sesión manualmente.</li>
+        <li>La suma de tiempo de las sesiones seleccionadas aparece debajo del historial.</li>
+        <li>Puedes alternar el tema claro/oscuro con el botón en la esquina inferior derecha.</li>
+      </ul>
+    </div>
+  </div>
+  <!-- Botón de tema oscuro -->
+  <button id="tema-btn" title="Cambiar tema">🌙</button>
+  <!-- Modal para agregar registro manualmente -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="closeModal">&times;</span>
+      <h2>Agregar Sesión Manualmente</h2>
+      <label>Día: <input type="date" id="modal-dia"></label><br>
+      <label>Hora de inicio: <input type="time" id="modal-inicio"></label><br>
+      <label>Hora de fin: <input type="time" id="modal-fin"></label><br>
+      <label>Actividad: <input type="text" id="modal-actividad"></label><br>
+      <button id="modal-agregar">Agregar</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
