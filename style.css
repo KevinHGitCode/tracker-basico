@@ -1,3 +1,19 @@
+.dark #resumen {
+  background: #23272f;
+  color: #e0e6ef;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+.dark .registro-item {
+  background: transparent;
+  color: #e0e6ef;
+}
+.dark .registro-item.selected {
+  background: #35507a;
+  color: #fff;
+}
+.dark .registro-item:hover {
+  background: #2a3a4a;
+}
 body.dark {
   background: #181c22;
   color: #e0e6ef;
@@ -132,4 +148,5 @@ button {
   background: #fff;
   padding: 10px;
   border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }

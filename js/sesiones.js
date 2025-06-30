@@ -15,7 +15,12 @@ let modals;
 const editandoIdxRef = { value: null };
 document.addEventListener('DOMContentLoaded', () => {
   setupDarkTheme();
-  modals = setupModals();
+  modals = setupModals({
+    onAgregarSesion: (registro) => {
+      guardarRegistro(registro);
+      mostrarRegistros();
+    }
+  });
 
   window.modals = modals; // para eventos globales
   window.mostrarSumaSeleccion = mostrarSumaSeleccion;
