@@ -83,7 +83,10 @@ function mostrarRegistros() {
   let registros = JSON.parse(localStorage.getItem('registros') || '[]');
   let html = "<h3>Historial de Sesiones</h3>";
   const idxEdit = editandoIdxRef.value !== null ? editandoIdxRef.value : editandoIdx;
-  registros.forEach((r, i) => {
+  // Mostrar en orden inverso (más reciente arriba)
+  registros.slice().reverse().forEach((r, iReverso) => {
+    // El índice real en el array original
+    const i = registros.length - 1 - iReverso;
     const selected = seleccionados.has(i) ? 'selected' : '';
     html += `<p class=\"registro-item ${selected}\" data-idx=\"${i}\">${idxEdit===i ? editarForm(r,i) : `<b>${r.fecha}</b> | ${r.actividad} | ${r.inicio} - ${r.fin} (${r.duracion})`}</p>`;
   });
