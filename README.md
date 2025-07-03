@@ -18,12 +18,12 @@ Aplicación web ligera que permite registrar sesiones de estudio, guardando la h
 
 ## 📂 Estructura del Proyecto
 
-
+```
 /tracker
 ├── index.html # Interfaz principal
 ├── style.css # Estilos básicos
 └── script.js # Lógica de registro y gestión de sesiones
-
+```
 
 ---
 
@@ -51,33 +51,26 @@ Los registros se guardan en `localStorage` bajo la clave `registros` en formato 
     "actividad": "Estudio Redes"
   }
 ]
+```
+### 📌 Tecnologías usadas
+- HTML5
+- CSS3
+- JavaScript ES6
+- localStorage API (para persistencia local en navegador)
 
-📌 Tecnologías usadas
-HTML5
+### 🚀 Instalación y uso
+1. Descarga o clona el repositorio.
+2. Abre index.html en tu navegador.
+3. Usa los botones Iniciar y Finalizar para registrar sesiones.
+4. Visualiza el historial en la sección inferior.
 
-CSS3
+### ⚙️ Limitaciones
+- Los registros se almacenan en localStorage, por lo que se eliminan al limpiar caché o datos de navegador.
+- No permite exportar registros como archivo JSON (se puede añadir fácilmente).
 
-JavaScript ES6
+- No permite modificar o eliminar registros individuales desde la interfaz.
 
-localStorage API (para persistencia local en navegador)
-
-🚀 Instalación y uso
-Descarga o clona el repositorio.
-
-Abre index.html en tu navegador.
-
-Usa los botones Iniciar y Finalizar para registrar sesiones.
-
-Visualiza el historial en la sección inferior.
-
-⚙️ Limitaciones
-Los registros se almacenan en localStorage, por lo que se eliminan al limpiar caché o datos de navegador.
-
-No permite exportar registros como archivo JSON (se puede añadir fácilmente).
-
-No permite modificar o eliminar registros individuales desde la interfaz.
-
-📌 Mejoras sugeridas
+### 📌 Mejoras sugeridas
 Agregar botón de exportación de registros a archivo .json.
 
 Permitir edición o eliminación de sesiones.
@@ -86,7 +79,7 @@ Filtrar sesiones por fecha.
 
 Mostrar total de horas acumuladas por día.
 
-📌 Créditos
+### 📌 Créditos
 Desarrollado por Kevin Diaz para fines personales y educativos.
 
 
