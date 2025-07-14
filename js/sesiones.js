@@ -5,6 +5,7 @@ import { setupModals } from './modals.js';
 import { setupDarkTheme } from './darkTheme.js';
 import { toHoraMinutos, formatearInputDate, calcularDuracion, sumarDuraciones } from './helpers.js';
 import { mostrarSumaSeleccion, eliminarSeleccionados } from './seleccion.js';
+import { setupMobileSelection } from './mobileSelection.js';
 
 
 let inicio = null;
@@ -88,13 +89,13 @@ function mostrarRegistros() {
     // El índice real en el array original
     const i = registros.length - 1 - iReverso;
     const selected = seleccionados.has(i) ? 'selected' : '';
-    html += `<p class=\"registro-item ${selected}\" data-idx=\"${i}\">${idxEdit===i ? editarForm(r,i) : `<b>${r.fecha}</b> | ${r.actividad} | ${r.inicio} - ${r.fin} (${r.duracion})`}</p>`;
+    html += `<p class=\"registro-item ${selected}\" data-idx=\"${i}\">${idxEdit===i ? editarForm(r,i) : `<span><b>${r.fecha}</b> | ${r.actividad}</span><span>${r.inicio} - ${r.fin} (${r.duracion})</span>`}</p>`;
   });
-  html += '<div id="suma-seleccion"></div>';
   document.getElementById('resumen').innerHTML = html;
 
-  // Modular: listeners de selección
+  // Modular: listeners de selección para desktop y móvil
   setupSeleccion({ seleccionados, editandoIdxRef, mostrarRegistros })();
+  setupMobileSelection({ seleccionados, editandoIdxRef, mostrarRegistros })();
 
   if (typeof window.mostrarSumaSeleccion === 'function') {
     window.mostrarSumaSeleccion(seleccionados);
