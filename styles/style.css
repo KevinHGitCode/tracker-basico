@@ -111,8 +111,32 @@ body.dark {
   cursor: pointer;
   transition: background 0.2s;
 }
-.registro-item.selected {
-  background: #d0eaff;
+
+@media (hover: hover) and (pointer: fine) {
+  /* Solo aplicar estilos de selección en dispositivos con mouse/touchpad */
+  .registro-item.selected {
+    background: #d0eaff;
+  }
+}
+
+/* En móviles, usar un estilo diferente para la selección */
+@media (hover: none) and (pointer: coarse) {
+  .registro-item.selected {
+    background: #e3f2fd;
+    position: relative;
+  }
+  .registro-item.selected::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: #2196f3;
+  }
+  .dark .registro-item.selected::after {
+    background: #64b5f6;
+  }
 }
 #suma-seleccion {
   margin-top: 1em;
@@ -189,6 +213,8 @@ button {
   background: #fff;
   padding: 10px;
   border-radius: 4px;
+  overscroll-behavior: none;
+  touch-action: pan-y pinch-zoom;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   max-height: 350px;
   overflow: auto;
