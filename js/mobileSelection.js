@@ -8,14 +8,29 @@ function setModeLock() {
   setTimeout(() => { modeChangeLock = false; }, 300); // Bloqueo por 300ms
 }
 
+function isTouchDevice() {
+  return (('ontouchstart' in window) ||
+     (navigator.maxTouchPoints > 0) ||
+     (navigator.msMaxTouchPoints > 0));
+}
+
 export function setupMobileSelection({ seleccionados, editandoIdxRef, mostrarRegistros }) {
+  // Si no es un dispositivo táctil, no configurar los listeners móviles
+  if (!isTouchDevice()) return () => {};
+
   return function addMobileSelectionListeners() {
     document.querySelectorAll('.registro-item').forEach(el => {
+      // Prevenir eventos de mouse en dispositivos táctiles
+      el.addEventListener('mousedown', e => e.preventDefault());
       // Manejo de eventos touch
       el.addEventListener('touchstart', function(e) {
+        // Prevenir el gesto de navegación del navegador
+        if (e.touches.length === 1) {
+          e.preventDefault();
+        }
+
         // Si estamos editando o el modo está bloqueado, ignorar completamente
         if (editandoIdxRef.value !== null || modeChangeLock) {
-          e.preventDefault();
           return;
         }
 
@@ -66,18 +81,16 @@ export function setupMobileSelection({ seleccionados, editandoIdxRef, mostrarReg
           }
           
           mostrarRegistros();
-        } else if (touchDuration < 500) {
-          // Touch corto normal, comportamiento por defecto
-          if (!document.body.classList.contains('selection-mode')) {
-            if (seleccionados.has(idx) && seleccionados.size === 1) {
-              seleccionados.clear();
-            } else {
-              seleccionados.clear();
-              seleccionados.add(idx);
-            }
-            setModeLock(); // Activar bloqueo temporal
-            mostrarRegistros();
+        } else if (touchDuration < 500 && !document.body.classList.contains('selection-mode')) {
+          // Touch corto normal, solo si no estamos en modo selección
+          if (seleccionados.has(idx) && seleccionados.size === 1) {
+            seleccionados.clear();
+          } else {
+            seleccionados.clear();
+            seleccionados.add(idx);
           }
+          setModeLock(); // Activar bloqueo temporal
+          mostrarRegistros();
         }
       });
 
@@ -87,34 +100,43 @@ export function setupMobileSelection({ seleccionados, editandoIdxRef, mostrarReg
       });
     });
 
-    // Agregar botón para salir del modo selección
-    const exitButton = document.createElement('button');
-    exitButton.id = 'exit-selection-mode';
-    exitButton.innerHTML = '✕';
-    exitButton.style.display = 'none';
-    document.body.appendChild(exitButton);
+    // Crear contenedor de controles de selección
+    const controlsContainer = document.createElement('div');
+    controlsContainer.className = 'selection-controls';
+    
+    // Botones de control
+    const controls = [
+      { icon: 'fa-check-double', title: 'Seleccionar todo', action: () => {
+        const items = document.querySelectorAll('.registro-item');
+        items.forEach(item => {
+          const idx = Number(item.getAttribute('data-idx'));
+          seleccionados.add(idx);
+        });
+        document.body.classList.add('selection-mode');
+        mostrarRegistros();
+      }},
+      { icon: 'fa-times', title: 'Salir de selección', action: () => {
+        seleccionados.clear();
+        document.body.classList.remove('selection-mode');
+        mostrarRegistros();
+      }}
+    ];
 
-    exitButton.addEventListener('click', () => {
-      seleccionados.clear();
-      document.body.classList.remove('selection-mode');
-      exitButton.style.display = 'none';
-      mostrarRegistros();
+    controls.forEach(control => {
+      const button = document.createElement('button');
+      button.innerHTML = `<i class="fa-solid ${control.icon}"></i>`;
+      button.title = control.title;
+      button.addEventListener('click', control.action);
+      controlsContainer.appendChild(button);
     });
 
-    // Observar cambios en el modo selección
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.target.classList.contains('selection-mode')) {
-          exitButton.style.display = 'block';
-        } else {
-          exitButton.style.display = 'none';
-        }
-      });
-    });
+    // Insertar controles después del h3 del resumen
+    const h3 = document.querySelector('#resumen > h3');
+    if (h3) {
+      h3.style.display = 'flex';
+      h3.style.alignItems = 'center';
+      h3.appendChild(controlsContainer);
+    }
 
-    observer.observe(document.body, {
-      attributes: true,
-      attributeFilter: ['class']
-    });
   };
 }

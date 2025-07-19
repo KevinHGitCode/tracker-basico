@@ -55,6 +55,52 @@
   opacity: 1;
 }
 
+/* Controles de selección */
+.selection-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 6px;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.2s, transform 0.2s;
+  pointer-events: none;
+}
+
+.selection-mode .selection-controls {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.selection-controls button {
+  background: none;
+  border: none;
+  padding: 4px;
+  border-radius: 50%;
+  color: inherit;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1em;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.selection-controls button:active {
+  transform: scale(0.9);
+}
+
+.selection-controls button:hover {
+  background: rgba(0,0,0,0.1);
+}
+
+.dark .selection-controls button:hover {
+  background: rgba(255,255,255,0.1);
+}
+
 /* Posicionamiento específico para cada opción en un arco simétrico */
 #floating-menu-container.active .floating-menu-option:nth-child(1) {
   transform: translate(70px, -10px) scale(1);
