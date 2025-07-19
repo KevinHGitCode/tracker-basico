@@ -1,18 +1,31 @@
 // mobileSelection.js
 let touchStartTime = 0;
 let touchTimer = null;
+let modeChangeLock = false;
+
+function setModeLock() {
+  modeChangeLock = true;
+  setTimeout(() => { modeChangeLock = false; }, 300); // Bloqueo por 300ms
+}
 
 export function setupMobileSelection({ seleccionados, editandoIdxRef, mostrarRegistros }) {
   return function addMobileSelectionListeners() {
     document.querySelectorAll('.registro-item').forEach(el => {
       // Manejo de eventos touch
       el.addEventListener('touchstart', function(e) {
+        // Si estamos editando o el modo está bloqueado, ignorar completamente
+        if (editandoIdxRef.value !== null || modeChangeLock) {
+          e.preventDefault();
+          return;
+        }
+
         touchStartTime = Date.now();
         const idx = Number(this.getAttribute('data-idx'));
         
         // Comenzar timer para detectar touch largo
         touchTimer = setTimeout(() => {
-          if (editandoIdxRef.value !== null) return;
+          // Verificación adicional de modo edición y bloqueo
+          if (editandoIdxRef.value !== null || modeChangeLock) return;
           
           // Touch largo activa modo selección múltiple
           if (!seleccionados.has(idx)) {
@@ -22,6 +35,7 @@ export function setupMobileSelection({ seleccionados, editandoIdxRef, mostrarReg
           
           // Mostrar indicador visual de modo selección
           document.body.classList.add('selection-mode');
+          setModeLock(); // Activar bloqueo temporal
         }, 500); // 500ms para considerar touch largo
       });
 
@@ -30,7 +44,11 @@ export function setupMobileSelection({ seleccionados, editandoIdxRef, mostrarReg
         const idx = Number(this.getAttribute('data-idx'));
         const touchDuration = Date.now() - touchStartTime;
         
-        if (editandoIdxRef.value !== null) return;
+        // Si estamos editando o el modo está bloqueado, ignorar completamente
+        if (editandoIdxRef.value !== null || modeChangeLock) {
+          e.preventDefault();
+          return;
+        }
 
         // Si estamos en modo selección
         if (document.body.classList.contains('selection-mode')) {
@@ -44,18 +62,22 @@ export function setupMobileSelection({ seleccionados, editandoIdxRef, mostrarReg
           // Si no hay más seleccionados, salir del modo selección
           if (seleccionados.size === 0) {
             document.body.classList.remove('selection-mode');
+            setModeLock(); // Activar bloqueo temporal
           }
           
           mostrarRegistros();
         } else if (touchDuration < 500) {
           // Touch corto normal, comportamiento por defecto
-          if (seleccionados.has(idx) && seleccionados.size === 1) {
-            seleccionados.clear();
-          } else {
-            seleccionados.clear();
-            seleccionados.add(idx);
+          if (!document.body.classList.contains('selection-mode')) {
+            if (seleccionados.has(idx) && seleccionados.size === 1) {
+              seleccionados.clear();
+            } else {
+              seleccionados.clear();
+              seleccionados.add(idx);
+            }
+            setModeLock(); // Activar bloqueo temporal
+            mostrarRegistros();
           }
-          mostrarRegistros();
         }
       });
 

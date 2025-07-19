@@ -21,7 +21,20 @@ body.dark {
 .dark .modal-content {
   background: #23272f;
   color: #e0e6ef;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
 }
+
+@keyframes modalAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .dark input, .dark select, .dark textarea {
   background: #23272f;
   color: #e0e6ef;
@@ -75,6 +88,24 @@ body.dark {
 .modal-content.ayuda {
   min-width: 350px;
 }
+
+/* Estilos para atajos de teclado */
+.modal-content.ayuda b {
+  display: inline-block;
+  padding: 2px 6px;
+  background: #f0f0f0;
+  border-radius: 4px;
+  font-family: 'Consolas', 'Monaco', monospace;
+  border: 1px solid #ddd;
+  font-size: 0.9em;
+  margin: 0 2px;
+}
+
+.dark .modal-content.ayuda b {
+  background: #2a3a4a;
+  border-color: #444;
+}
+
 /* Selección de sesiones */
 .registro-item {
   cursor: pointer;
@@ -94,19 +125,29 @@ body.dark {
   z-index: 1000;
   left: 0;
   top: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0,0,0,0.4);
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
   justify-content: center;
   align-items: center;
+  backdrop-filter: blur(2px);
+  box-sizing: border-box;
 }
+
+.modal[style*="display: block"] {
+  display: flex !important;
+}
+
 .modal-content {
   background: #fff;
   padding: 2em;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
   min-width: 300px;
+  max-width: 90%;
   position: relative;
+  animation: modalAppear 0.2s ease-out;
+  text-align: left;
 }
 .close {
   position: absolute;
