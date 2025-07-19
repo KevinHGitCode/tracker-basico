@@ -5,6 +5,7 @@ import { setupModals } from './modals.js';
 import { setupDarkTheme } from './darkTheme.js';
 import { toHoraMinutos, calcularDuracion } from './helpers.js';
 import { mostrarSumaSeleccion, eliminarSeleccionados } from './seleccion.js';
+import { setupFloatingMenu } from './floatingMenu.js';
 import { formCrear } from './forms/formCrear.js';
 import { formEditar } from './forms/formEditar.js';
 import { storage } from './storage/storage.js';
@@ -20,6 +21,7 @@ window.formEditar = formEditar;
 
 document.addEventListener('DOMContentLoaded', () => {
   setupDarkTheme();
+  setupFloatingMenu();
   const modals = setupModals({
     onAgregarSesion: (registro) => {
       storage.guardarRegistro(registro);
