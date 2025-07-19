@@ -6,6 +6,8 @@
   <title>Registro de Horas</title>
   <link rel="stylesheet" href="styles/style.css">
   <link rel="stylesheet" href="styles/mobile.css">
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
   <h1>⏰ Registro de Horas</h1>
@@ -17,11 +19,11 @@
   <div id="resumen"></div>
   <div id="suma-seleccion"></div>
   <!-- Botón de ayuda abajo a la izquierda -->
-  <button id="ayuda-btn" title="Ayuda">❓</button>
+  <button id="ayuda-btn" title="Ayuda"><i class="fa-solid fa-circle-question"></i></button>
   <!-- Modal de ayuda -->
   <div id="modal-ayuda" class="modal">
     <div class="modal-content ayuda">
-      <span class="close" id="closeAyuda">&times;</span>
+      <span class="close" id="closeAyuda"><i class="fa-solid fa-xmark"></i></span>
       <h2>Ayuda e Instrucciones</h2>
       <ul>
         <li>Haz clic en una sesión para seleccionarla. Usa Ctrl/Cmd para selección múltiple, Shift para rango.</li>
@@ -34,11 +36,11 @@
     </div>
   </div>
   <!-- Botón de tema oscuro -->
-  <button id="tema-btn" title="Cambiar tema">🌙</button>
+  <button id="tema-btn" title="Cambiar tema"><i class="fa-solid fa-moon"></i></button>
   <!-- Modal para agregar registro manualmente -->
   <div id="modal" class="modal">
     <div class="modal-content">
-      <span class="close" id="closeModal">&times;</span>
+      <span class="close" id="closeModal"><i class="fa-solid fa-xmark"></i></span>
       <h2>Agregar Sesión Manualmente</h2>
       <label>Día: <input type="date" id="modal-dia"></label><br>
       <label>Hora de inicio: <input type="time" id="modal-inicio"></label><br>
