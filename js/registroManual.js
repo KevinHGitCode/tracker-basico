@@ -1,8 +1,6 @@
 // registroManual.js
 // Lógica para agregar sesión manual desde el modal
 
-import { setupModals } from './modals.js';
-
 export function setupRegistroManual(guardarRegistro, mostrarRegistros) {
   const modalAgregarBtn = document.getElementById('modal-agregar');
   modalAgregarBtn.onclick = function() {
