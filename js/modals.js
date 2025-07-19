@@ -14,6 +14,16 @@ export function setupModals({ onAgregarSesion } = {}) {
   const modal = document.getElementById('modal');
   const closeModalBtn = document.getElementById('closeModal');
   closeModalBtn.onclick = cerrarModal;
+
+  // Cerrar modales al hacer clic fuera
+  window.onclick = function(event) {
+    if (event.target === modalAyuda) {
+      modalAyuda.style.display = 'none';
+    }
+    if (event.target === modal) {
+      cerrarModal();
+    }
+  };
   function cerrarModal() {
     modal.style.display = 'none';
     document.getElementById('modal-dia').value = '';

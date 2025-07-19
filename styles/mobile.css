@@ -36,21 +36,60 @@
     max-height: 270px;
   }
 
+  .modal {
+    padding: 1rem;
+    box-sizing: border-box;
+    display: none;
+  }
+
   .modal-content {
-    width: 90%;
+    width: calc(100% - 2rem);
     max-width: 350px;
     padding: 1.5em;
-    margin: 10px;
+    margin: 0;
+    border-radius: 12px;
+    text-align: left;
+  }
+
+  .modal-content.ayuda {
+    min-width: unset;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+
+  .modal-content h2 {
+    margin-top: 0;
+    text-align: left;
   }
 
   .modal-content input {
     width: 100%;
-    margin: 5px 0;
+    margin: 4px 0 12px;
+    font-size: 16px; /* Previene zoom en iOS */
+    padding: 12px;
+    border-radius: 8px;
+    box-sizing: border-box;
   }
 
   .modal-content label {
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 0;
+    font-size: 1rem;
+    text-align: left;
+  }
+
+  .modal-content button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    font-size: 1rem;
+    border-radius: 8px;
+  }
+
+  .close {
+    padding: 12px;
+    top: 5px;
+    right: 5px;
   }
 
   #modal-agregar {

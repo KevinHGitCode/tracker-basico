@@ -6,11 +6,19 @@ export function setupDarkTheme() {
   function toggleTheme() {
     document.body.classList.toggle('dark');
     localStorage.setItem('tema', document.body.classList.contains('dark') ? 'dark' : '');
-    temaBtn.innerText = document.body.classList.contains('dark') ? '☀️' : '🌙';
+    const icon = temaBtn.querySelector('i');
+    if (icon) {
+      icon.classList.toggle('fa-moon', !document.body.classList.contains('dark'));
+      icon.classList.toggle('fa-sun', document.body.classList.contains('dark'));
+    }
   }
   temaBtn.onclick = toggleTheme;
   if (localStorage.getItem('tema') === 'dark') {
     document.body.classList.add('dark');
-    temaBtn.innerText = '☀️';
+    const icon = temaBtn.querySelector('i');
+    if (icon) {
+      icon.classList.remove('fa-moon');
+      icon.classList.add('fa-sun');
+    }
   }
 }

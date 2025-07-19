@@ -14,7 +14,7 @@ function mostrarRegistros() {
     html += `<p class="registro-item ${selected}" data-idx="${i}">
       ${idxEdit === i ? 
         window.formEditar.editarForm(r, i) : 
-        `<span><b>${r.fecha}</b> | ${r.actividad}</span> | <span>${r.inicio} - ${r.fin} (${r.duracion})</span>`}
+        `<span><b>${r.fecha}</b> | ${r.actividad} | </span> <span>${r.inicio} - ${r.fin} (${r.duracion})</span>`}
     </p>`;
   });
   
