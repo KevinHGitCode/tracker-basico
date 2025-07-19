@@ -1,0 +1,90 @@
+/* Floating Menu Styles */
+#floating-menu-btn {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #fff;
+  color: #222;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  cursor: pointer;
+  z-index: 2000;
+  font-size: 1.5em;
+  transition: transform 0.3s, background-color 0.3s;
+  display: none;
+}
+
+#floating-menu-btn.active {
+  transform: rotate(225deg);
+}
+
+#floating-menu-container {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 56px;
+  height: 56px;
+  z-index: 1999;
+  display: none;
+}
+
+#floating-menu-container.active {
+  display: block;
+}
+
+.floating-menu-option {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: white;
+  color: #333;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  cursor: pointer;
+  font-size: 1.5em;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s;
+  opacity: 0;
+  transform: translate(0, 0) scale(0.8);
+}
+
+#floating-menu-container.active .floating-menu-option {
+  opacity: 1;
+}
+
+/* Posicionamiento específico para cada opción en un arco simétrico */
+#floating-menu-container.active .floating-menu-option:nth-child(1) {
+  transform: translate(70px, -10px) scale(1);
+}
+
+#floating-menu-container.active .floating-menu-option:nth-child(2) {
+  transform: translate(50px, -50px) scale(1);
+}
+
+#floating-menu-container.active .floating-menu-option:nth-child(3) {
+  transform: translate(10px, -70px) scale(1);
+}
+
+.dark #floating-menu-btn {
+  background: #23272f;
+  color: #e0e6ef;
+}
+
+.dark .floating-menu-option {
+  background: #23272f;
+  color: #e0e6ef;
+}
+
+@media screen and (max-width: 568px) {
+  #ayuda-btn {
+    display: none;
+  }
+  
+  #floating-menu-btn,
+  #floating-menu-container {
+    display: block;
+  }
+}
