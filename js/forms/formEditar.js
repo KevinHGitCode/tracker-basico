@@ -1,11 +1,23 @@
-import { formatearInputDate } from '../helpers.js';
+import { formatearInputDate } from '../helpers/helpers.js';
 
 function editarForm(r, i) {
+  const grupos = window.storage.obtenerGrupos();
+  const grupoActual = r.grupo || 'null';
+  
+  let grupoOptions = '<option value="null">Sin grupo</option>';
+  grupos.forEach(grupo => {
+    const selected = grupoActual === grupo.id ? 'selected' : '';
+    grupoOptions += `<option value="${grupo.id}" ${selected}>${grupo.nombre}</option>`;
+  });
+
   return `<form class='editar-form' onsubmit='return false;'>
     <input type='date' id='edit-dia' value='${formatearInputDate(r.fecha)}'>
     <input type='time' id='edit-inicio' value='${r.inicio}'>
     <input type='time' id='edit-fin' value='${r.fin}'>
     <input type='text' id='edit-actividad' value='${r.actividad}'>
+    <select id='edit-grupo'>
+      ${grupoOptions}
+    </select>
     <button class='editar-guardar' data-idx='${i}'>Guardar</button>
     <button class='editar-cancelar' type='button'>Cancelar</button>
   </form>`;
@@ -17,6 +29,7 @@ function guardarEdicion(idx) {
   const inicioHora = document.getElementById('edit-inicio').value;
   const finHora = document.getElementById('edit-fin').value;
   const actividad = document.getElementById('edit-actividad').value.trim();
+  const grupoId = document.getElementById('edit-grupo').value;
   if (!dia || !inicioHora || !finHora || !actividad) {
     alert('Completa todos los campos.');
     return;
@@ -32,17 +45,28 @@ function guardarEdicion(idx) {
   const duracionMin = min2 - min1;
   const duracion = `${Math.floor(duracionMin / 60)}h ${duracionMin % 60}m`;
   
-  registros[idx] = {
+  const registroActualizado = {
     fecha: fechaFormateada,
     inicio: inicioHora,
     fin: finHora,
     duracion: duracion,
     actividad: actividad
   };
-  localStorage.setItem('registros', JSON.stringify(registros));
+  
+  // Agregar grupo solo si no es "null"
+  if (grupoId !== 'null') {
+    registroActualizado.grupo = grupoId;
+  }
+  
+  window.storage.actualizarRegistro(idx, registroActualizado);
   window.sessionData.editandoIdxRef.value = null;
   window.sessionData.editandoIdx = null;
   window.core.mostrarRegistros();
+  
+  // Actualizar sidebar si existe
+  if (window.groupsSidebar && window.groupsSidebar.renderizarGrupos) {
+    window.groupsSidebar.renderizarGrupos();
+  }
 }
 
 export const formEditar = {

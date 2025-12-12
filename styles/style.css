@@ -185,6 +185,8 @@ body {
   background: #f4f4f4;
   padding: 20px;
   text-align: center;
+  margin: 0;
+  padding-bottom: 80px;
 }
 
 h1 {
@@ -228,4 +230,210 @@ button {
   background: inherit;
   padding: 8px 0 0 0;
   z-index: 2;
+}
+
+/* Layout principal con sidebar */
+.main-content {
+  margin-right: 280px;
+  transition: margin-right 0.3s ease;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: calc(280px + 20px);
+}
+
+/* Sidebar de grupos */
+.groups-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 260px;
+  height: 100vh;
+  background: #fff;
+  border-left: 1px solid #ddd;
+  box-shadow: -2px 0 8px rgba(0,0,0,0.1);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.dark .groups-sidebar {
+  background: #23272f;
+  border-left-color: #444;
+}
+
+.groups-header {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+  background: #f9f9f9;
+}
+
+.dark .groups-header {
+  background: #2a3a4a;
+  border-bottom-color: #444;
+}
+
+.groups-header h3 {
+  margin: 0 0 15px 0;
+  font-size: 1.2em;
+  color: #333;
+}
+
+.dark .groups-header h3 {
+  color: #e0e6ef;
+}
+
+.groups-create {
+  display: flex;
+  gap: 5px;
+}
+
+.groups-create input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+.dark .groups-create input {
+  background: #23272f;
+  color: #e0e6ef;
+  border-color: #444;
+}
+
+.groups-create button {
+  padding: 8px 12px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background 0.2s;
+}
+
+.groups-create button:hover {
+  background: #45a049;
+}
+
+.dark .groups-create button {
+  background: #4CAF50;
+}
+
+.dark .groups-create button:hover {
+  background: #45a049;
+}
+
+.groups-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.group-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+  position: relative;
+}
+
+.group-item:hover {
+  background: #f0f0f0;
+}
+
+.dark .group-item:hover {
+  background: #2a3a4a;
+}
+
+.group-item.active {
+  background: #e3f2fd;
+  font-weight: bold;
+}
+
+.dark .group-item.active {
+  background: #35507a;
+  color: #fff;
+}
+
+.group-name {
+  flex: 1;
+  font-size: 0.95em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.group-count {
+  background: #e0e0e0;
+  color: #333;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  margin-left: 8px;
+  min-width: 24px;
+  text-align: center;
+}
+
+.dark .group-count {
+  background: #444;
+  color: #e0e6ef;
+}
+
+.group-item.active .group-count {
+  background: #1976d2;
+  color: white;
+}
+
+.dark .group-item.active .group-count {
+  background: #64b5f6;
+  color: #181c22;
+}
+
+.group-delete {
+  margin-left: 8px;
+  padding: 4px 8px;
+  background: transparent;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s, color 0.2s;
+  font-size: 0.85em;
+}
+
+.group-item:hover .group-delete {
+  opacity: 1;
+}
+
+.group-delete:hover {
+  color: #f44336;
+}
+
+.dark .group-delete {
+  color: #666;
+}
+
+.dark .group-delete:hover {
+  color: #f44336;
+}
+
+/* Responsive: ocultar sidebar en móviles */
+@media (max-width: 768px) {
+  .main-content {
+    margin-right: 0;
+  }
+  
+  .groups-sidebar {
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+  }
+  
+  .groups-sidebar.open {
+    transform: translateX(0);
+  }
 }

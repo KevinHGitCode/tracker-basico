@@ -1,6 +1,6 @@
 // seleccion.js
 // Lógica para selección de sesiones, suma y eliminación
-import { sumarDuraciones } from './helpers.js';
+import { sumarDuraciones } from '../helpers/helpers.js';
 
 export function setupSeleccion({ seleccionados, editandoIdxRef, mostrarRegistros }) {
   return function addSeleccionListeners() {

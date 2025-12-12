@@ -3,6 +3,22 @@
 
 // Recibe callbacks para guardar y refrescar registros
 export function setupModals({ onAgregarSesion } = {}) {
+  // Función para actualizar el selector de grupos en el modal
+  function actualizarSelectorGrupos() {
+    const selectGrupo = document.getElementById('modal-grupo');
+    if (!selectGrupo) return;
+    
+    const grupos = window.storage.obtenerGrupos();
+    const grupoSeleccionado = window.sessionData.grupoSeleccionadoRef.value;
+    
+    let html = '<option value="null">Sin grupo</option>';
+    grupos.forEach(grupo => {
+      const selected = grupoSeleccionado === grupo.id ? 'selected' : '';
+      html += `<option value="${grupo.id}" ${selected}>${grupo.nombre}</option>`;
+    });
+    selectGrupo.innerHTML = html;
+  }
+
   // Modal de ayuda
   const ayudaBtn = document.getElementById('ayuda-btn');
   const modalAyuda = document.getElementById('modal-ayuda');
@@ -14,6 +30,17 @@ export function setupModals({ onAgregarSesion } = {}) {
   const modal = document.getElementById('modal');
   const closeModalBtn = document.getElementById('closeModal');
   closeModalBtn.onclick = cerrarModal;
+  
+  // Actualizar selector cuando se abre el modal
+  const modalElement = document.getElementById('modal');
+  if (modalElement) {
+    const observer = new MutationObserver(() => {
+      if (modalElement.style.display === 'block') {
+        actualizarSelectorGrupos();
+      }
+    });
+    observer.observe(modalElement, { attributes: true, attributeFilter: ['style'] });
+  }
 
   // Cerrar modales al hacer clic fuera
   window.onclick = function(event) {
@@ -54,6 +81,8 @@ export function setupModals({ onAgregarSesion } = {}) {
       if (min2 < min1) min2 += 24 * 60;
       const duracionMin = min2 - min1;
       const duracion = `${Math.floor(duracionMin / 60)}h ${duracionMin % 60}m`;
+      const grupoId = document.getElementById('modal-grupo').value;
+      
       const registro = {
         fecha: fechaFormateada,
         inicio,
@@ -61,6 +90,12 @@ export function setupModals({ onAgregarSesion } = {}) {
         duracion,
         actividad
       };
+      
+      // Agregar grupo solo si no es "null"
+      if (grupoId !== 'null') {
+        registro.grupo = grupoId;
+      }
+      
       if (typeof onAgregarSesion === 'function') {
         onAgregarSesion(registro);
       }
@@ -68,7 +103,10 @@ export function setupModals({ onAgregarSesion } = {}) {
     };
   }
   return {
-    abrirModal: function() { modal.style.display = 'block'; },
+    abrirModal: function() { 
+      actualizarSelectorGrupos();
+      modal.style.display = 'block'; 
+    },
     cerrarModal
   };
 }

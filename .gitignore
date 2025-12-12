@@ -1,0 +1,7 @@
+node_modules/
+*.log
+
+# El CSS de Tailwind compilado se commitea automáticamente por GitHub Actions
+# Para desarrollo local, compila con: npm run build-css
+# styles/tailwind.css
+

@@ -1,15 +1,28 @@
-import { setupSeleccion } from '../seleccion.js';
-import { setupMobileSelection } from '../mobileSelection.js';
+import { setupSeleccion } from '../handlers/seleccion.js';
+import { setupMobileSelection } from '../handlers/mobileSelection.js';
 
 function mostrarRegistros() {
   let registros = window.storage.obtenerRegistros();
+  const grupoSeleccionado = window.sessionData.grupoSeleccionadoRef.value;
+  
+  // Crear array de registros con sus índices originales
+  let registrosConIndices = registros.map((r, idx) => ({ registro: r, idx }));
+  
+  // Filtrar por grupo si hay uno seleccionado
+  if (grupoSeleccionado !== null) {
+    registrosConIndices = registrosConIndices.filter(item => item.registro.grupo === grupoSeleccionado);
+  } else {
+    // Si no hay grupo seleccionado, mostrar solo sesiones sin grupo
+    registrosConIndices = registrosConIndices.filter(item => !item.registro.grupo);
+  }
+
   let html = "<h3>Historial de Sesiones</h3>";
   const idxEdit = window.sessionData.editandoIdxRef.value !== null ? 
                  window.sessionData.editandoIdxRef.value : 
                  window.sessionData.editandoIdx;
 
-  registros.slice().reverse().forEach((r, iReverso) => {
-    const i = registros.length - 1 - iReverso;
+  // Mostrar en orden inverso (más recientes primero)
+  registrosConIndices.slice().reverse().forEach(({ registro: r, idx: i }) => {
     const selected = window.sessionData.seleccionados.has(i) ? 'selected' : '';
     html += `<p class="registro-item ${selected}" data-idx="${i}">
       ${idxEdit === i ? 

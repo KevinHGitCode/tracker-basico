@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registro de Horas</title>
+  <link rel="stylesheet" href="styles/tailwind.css">
   <link rel="stylesheet" href="styles/style.css">
   <link rel="stylesheet" href="styles/mobile.css">
   <link rel="stylesheet" href="styles/floatingMenu.css">
   <!-- Font Awesome CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
+
 <body>
   <h1>⏰ Registro de Horas</h1>
   <div class="registro">
@@ -17,8 +20,21 @@
     <button onclick="iniciar()">Iniciar</button>
     <button onclick="finalizar()">Finalizar</button>
   </div>
-  <div id="resumen"></div>
-  <div id="suma-seleccion"></div>
+  <div class="main-content">
+    <div id="resumen"></div>
+    <div id="suma-seleccion"></div>
+  </div>
+  <!-- Sidebar de grupos -->
+  <div id="groups-sidebar" class="groups-sidebar">
+    <div class="groups-header">
+      <h3>Grupos</h3>
+      <div class="groups-create">
+        <input type="text" id="input-grupo-nombre" placeholder="Nuevo grupo">
+        <button id="btn-crear-grupo"><i class="fa-solid fa-plus"></i></button>
+      </div>
+    </div>
+    <div id="groups-list" class="groups-list"></div>
+  </div>
   <!-- Botón de ayuda abajo a la izquierda -->
   <button id="ayuda-btn" title="Ayuda"><i class="fa-solid fa-circle-question"></i></button>
   <!-- Modal de ayuda -->
@@ -28,7 +44,8 @@
       <h2>Ayuda e Instrucciones</h2>
       <ul>
         <li>Haz clic en una sesión para seleccionarla. Usa Ctrl/Cmd para selección múltiple, Shift para rango.</li>
-        <li>Presiona <b>Suprimir</b> o <b>Backspace</b> para eliminar las seleccionadas (requiere contraseña <b>delete</b>).</li>
+        <li>Presiona <b>Suprimir</b> o <b>Backspace</b> para eliminar las seleccionadas (requiere contraseña
+          <b>delete</b>).</li>
         <li>Presiona <b>Enter</b> sobre una sola sesión seleccionada para editarla.</li>
         <li>Presiona <b>Escape</b> para abrir el modal y agregar una sesión manualmente.</li>
         <li>La suma de tiempo de las sesiones seleccionadas aparece debajo del historial.</li>
@@ -47,9 +64,12 @@
       <label>Hora de inicio: <input type="time" id="modal-inicio"></label><br>
       <label>Hora de fin: <input type="time" id="modal-fin"></label><br>
       <label>Actividad: <input type="text" id="modal-actividad"></label><br>
+      <label>Grupo: <select id="modal-grupo"></select></label><br>
       <button id="modal-agregar">Agregar</button>
     </div>
   </div>
+  
   <script type="module" src="js/app.js"></script>
 </body>
+
 </html>

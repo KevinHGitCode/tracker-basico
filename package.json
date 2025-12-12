@@ -1,0 +1,14 @@
+{
+  "name": "tracker-basico",
+  "version": "1.0.0",
+  "description": "Registro de Horas de Estudio",
+  "type": "module",
+  "scripts": {
+    "build-css": "tailwindcss -i ./input.css -o ./styles/tailwind.css --minify",
+    "watch-css": "tailwindcss -i ./input.css -o ./styles/tailwind.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.0"
+  }
+}
+
