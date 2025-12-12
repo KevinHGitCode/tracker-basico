@@ -29,6 +29,8 @@ export function setupRegistroManual(guardarRegistro, mostrarRegistros) {
     };
     guardarRegistro(registro);
     mostrarRegistros();
-    document.getElementById('modal').style.display = 'none';
+    const modal = document.getElementById('modal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
   };
 }

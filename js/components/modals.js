@@ -23,8 +23,14 @@ export function setupModals({ onAgregarSesion } = {}) {
   const ayudaBtn = document.getElementById('ayuda-btn');
   const modalAyuda = document.getElementById('modal-ayuda');
   const closeAyuda = document.getElementById('closeAyuda');
-  ayudaBtn.onclick = function() { modalAyuda.style.display = 'block'; };
-  closeAyuda.onclick = function() { modalAyuda.style.display = 'none'; };
+  ayudaBtn.onclick = function() { 
+    modalAyuda.classList.remove('hidden');
+    modalAyuda.classList.add('flex');
+  };
+  closeAyuda.onclick = function() { 
+    modalAyuda.classList.add('hidden');
+    modalAyuda.classList.remove('flex');
+  };
 
   // Modal de agregar sesión
   const modal = document.getElementById('modal');
@@ -35,24 +41,26 @@ export function setupModals({ onAgregarSesion } = {}) {
   const modalElement = document.getElementById('modal');
   if (modalElement) {
     const observer = new MutationObserver(() => {
-      if (modalElement.style.display === 'block') {
+      if (modalElement.classList.contains('flex')) {
         actualizarSelectorGrupos();
       }
     });
-    observer.observe(modalElement, { attributes: true, attributeFilter: ['style'] });
+    observer.observe(modalElement, { attributes: true, attributeFilter: ['class'] });
   }
 
   // Cerrar modales al hacer clic fuera
   window.onclick = function(event) {
     if (event.target === modalAyuda) {
-      modalAyuda.style.display = 'none';
+      modalAyuda.classList.add('hidden');
+      modalAyuda.classList.remove('flex');
     }
     if (event.target === modal) {
       cerrarModal();
     }
   };
   function cerrarModal() {
-    modal.style.display = 'none';
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
     document.getElementById('modal-dia').value = '';
     document.getElementById('modal-inicio').value = '';
     document.getElementById('modal-fin').value = '';
@@ -105,7 +113,8 @@ export function setupModals({ onAgregarSesion } = {}) {
   return {
     abrirModal: function() { 
       actualizarSelectorGrupos();
-      modal.style.display = 'block'; 
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
     },
     cerrarModal
   };

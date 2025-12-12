@@ -16,7 +16,7 @@ function mostrarRegistros() {
     registrosConIndices = registrosConIndices.filter(item => !item.registro.grupo);
   }
 
-  let html = "<h3>Historial de Sesiones</h3>";
+  let html = "<h3 class='text-xl font-semibold mb-4'>Historial de Sesiones</h3>";
   const idxEdit = window.sessionData.editandoIdxRef.value !== null ? 
                  window.sessionData.editandoIdxRef.value : 
                  window.sessionData.editandoIdx;
@@ -24,7 +24,7 @@ function mostrarRegistros() {
   // Mostrar en orden inverso (más recientes primero)
   registrosConIndices.slice().reverse().forEach(({ registro: r, idx: i }) => {
     const selected = window.sessionData.seleccionados.has(i) ? 'selected' : '';
-    html += `<p class="registro-item ${selected}" data-idx="${i}">
+    html += `<p class="registro-item cursor-pointer transition-colors ${selected}" data-idx="${i}">
       ${idxEdit === i ? 
         window.formEditar.editarForm(r, i) : 
         `<span><b>${r.fecha}</b> | ${r.actividad} | </span> <span>${r.inicio} - ${r.fin} (${r.duracion})</span>`}

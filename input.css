@@ -2,8 +2,75 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Tus estilos personalizados pueden ir aquí */
+/* Animación para modales */
+@keyframes modalAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Estilos personalizados */
 @layer components {
-  /* Puedes agregar componentes personalizados aquí */
+  /* Estilos para registro-item que dependen de JS */
+  .registro-item.selected {
+    @apply bg-gray-200;
+  }
+  
+  @media (hover: hover) and (pointer: fine) {
+    .registro-item.selected {
+      @apply bg-gray-200;
+    }
+  }
+  
+  @media (hover: none) and (pointer: coarse) {
+    .registro-item.selected {
+      @apply bg-gray-100 relative;
+    }
+    .registro-item.selected::after {
+      content: '';
+      @apply absolute left-0 top-0 bottom-0 w-1 bg-black;
+    }
+    .dark .registro-item.selected::after {
+      @apply bg-white;
+    }
+  }
+  
+  .dark .registro-item.selected {
+    @apply bg-gray-800 text-white;
+  }
+  
+  .dark .registro-item {
+    @apply bg-transparent text-white;
+  }
+  
+  .dark .registro-item:hover {
+    @apply bg-gray-900;
+  }
+  
+  /* Estilos para #resumen */
+  #resumen {
+    @apply text-left max-w-[600px] mx-auto bg-white p-2.5 rounded border border-black shadow-[0_2px_8px_rgba(0,0,0,0.08)] max-h-[350px] overflow-auto flex flex-col overscroll-none touch-pan-y;
+  }
+  
+  .dark #resumen {
+    @apply bg-black text-white border-white shadow-[0_2px_8px_rgba(255,255,255,0.1)];
+  }
+  
+  /* Estilos para suma-seleccion */
+  #suma-seleccion {
+    @apply sticky bottom-0 bg-inherit pt-2 z-[2] mt-4 text-lg;
+  }
+  
+  /* Estilos para móviles */
+  @media screen and (max-width: 568px) {
+    .dark .registro-item span:last-child {
+      @apply text-gray-400;
+    }
+  }
 }
 

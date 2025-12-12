@@ -2,7 +2,7 @@
 // Lógica principal para gestión de sesiones, selección, edición y suma
 
 import { setupModals } from './components/modals.js';
-import { setupDarkTheme } from './themes/darkTheme.js';
+import { setupDarkTheme } from './themes/dark.js';
 import { toHoraMinutos, calcularDuracion } from './helpers/helpers.js';
 import { mostrarSumaSeleccion, eliminarSeleccionados } from './handlers/seleccion.js';
 import { setupFloatingMenu } from './components/floatingMenu.js';
