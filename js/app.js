@@ -12,6 +12,7 @@ import { storage } from './storage/storage.js';
 import { core } from './core/core.js';
 import { sessionData } from './data/sessionData.js';
 import { setupGroupsSidebar } from './components/groupsSidebar.js';
+import { setupEstadisticas } from './components/estadisticas.js';
 
 // Inicializar datos globales
 window.sessionData = sessionData;
@@ -40,6 +41,10 @@ document.addEventListener('DOMContentLoaded', () => {
     mostrarRegistros: core.mostrarRegistros
   });
   window.groupsSidebar = groupsSidebar;
+
+  // Inicializar estadísticas
+  const estadisticas = setupEstadisticas();
+  window.estadisticas = estadisticas;
 
   window.modals = modals;
   window.mostrarSumaSeleccion = mostrarSumaSeleccion;

@@ -23,6 +23,9 @@ export function setupModals({ onAgregarSesion } = {}) {
   const ayudaBtn = document.getElementById('ayuda-btn');
   const modalAyuda = document.getElementById('modal-ayuda');
   const closeAyuda = document.getElementById('closeAyuda');
+  
+  // Modal de estadísticas
+  const modalEstadisticas = document.getElementById('modal-estadisticas');
   ayudaBtn.onclick = function() { 
     modalAyuda.classList.remove('hidden');
     modalAyuda.classList.add('flex');
@@ -56,6 +59,10 @@ export function setupModals({ onAgregarSesion } = {}) {
     }
     if (event.target === modal) {
       cerrarModal();
+    }
+    if (modalEstadisticas && event.target === modalEstadisticas) {
+      modalEstadisticas.classList.add('hidden');
+      modalEstadisticas.classList.remove('flex');
     }
   };
   function cerrarModal() {

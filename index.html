@@ -51,8 +51,20 @@
       <i class="fa-solid fa-chevron-left"></i>
     </button>
     
+    <!-- Botón de estadísticas arriba a la izquierda -->
+    <button id="estadisticas-btn" title="Estadísticas de hoy" class="fixed top-5 left-5 text-xl bg-white border border-black rounded-full w-11 h-11 cursor-pointer z-[2000] shadow-[0_2px_8px_rgba(0,0,0,0.15)] transition-colors hover:bg-gray-100 dark:bg-black dark:text-white dark:border-white dark:hover:bg-gray-800 flex items-center justify-center"><i class="fa-solid fa-chart-line"></i></button>
+    
     <!-- Botón de ayuda abajo a la izquierda -->
     <button id="ayuda-btn" title="Ayuda" class="fixed bottom-5 left-5 text-2xl bg-white border border-black rounded-full w-11 h-11 cursor-pointer z-[2000] shadow-[0_2px_8px_rgba(0,0,0,0.15)] transition-colors hover:bg-gray-100 dark:bg-black dark:text-white dark:border-white dark:hover:bg-gray-800"><i class="fa-solid fa-circle-question"></i></button>
+    
+    <!-- Modal de estadísticas -->
+    <div id="modal-estadisticas" class="hidden fixed z-[1000] inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center">
+      <div class="bg-white p-8 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.2)] min-w-[350px] max-w-[90%] relative text-left animate-[modalAppear_0.2s_ease-out] dark:bg-[#23272f] dark:text-[#e0e6ef] dark:shadow-[0_4px_20px_rgba(0,0,0,0.4)]">
+        <span class="close absolute top-2.5 right-4 text-2xl cursor-pointer" id="closeEstadisticas"><i class="fa-solid fa-xmark"></i></span>
+        <h2 class="mt-0">📊 Estadísticas de Hoy</h2>
+        <div id="estadisticas-contenido"></div>
+      </div>
+    </div>
     
     <!-- Modal de ayuda -->
     <div id="modal-ayuda" class="hidden fixed z-[1000] inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center">
@@ -64,6 +76,7 @@
           <li>Presiona <b class="inline-block px-1.5 py-0.5 bg-white rounded border border-black font-mono text-sm my-0 mx-0.5 dark:bg-black dark:border-white">Suprimir</b> o <b class="inline-block px-1.5 py-0.5 bg-white rounded border border-black font-mono text-sm my-0 mx-0.5 dark:bg-black dark:border-white">Backspace</b> para eliminar las seleccionadas (requiere contraseña <b class="inline-block px-1.5 py-0.5 bg-white rounded border border-black font-mono text-sm my-0 mx-0.5 dark:bg-black dark:border-white">delete</b>).</li>
           <li>Presiona <b class="inline-block px-1.5 py-0.5 bg-white rounded border border-black font-mono text-sm my-0 mx-0.5 dark:bg-black dark:border-white">Enter</b> sobre una sola sesión seleccionada para editarla.</li>
           <li>Presiona <b class="inline-block px-1.5 py-0.5 bg-white rounded border border-black font-mono text-sm my-0 mx-0.5 dark:bg-black dark:border-white">Escape</b> para abrir el modal y agregar una sesión manualmente.</li>
+          <li>Presiona <b class="inline-block px-1.5 py-0.5 bg-white rounded border border-black font-mono text-sm my-0 mx-0.5 dark:bg-black dark:border-white">Ctrl+E</b> (o <b class="inline-block px-1.5 py-0.5 bg-white rounded border border-black font-mono text-sm my-0 mx-0.5 dark:bg-black dark:border-white">Cmd+E</b> en Mac) para ver las estadísticas de hoy.</li>
           <li>La suma de tiempo de las sesiones seleccionadas aparece debajo del historial.</li>
           <li>Puedes alternar el tema claro/oscuro con el botón en la esquina inferior derecha.</li>
         </ul>

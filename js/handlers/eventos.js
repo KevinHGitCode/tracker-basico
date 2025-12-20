@@ -38,6 +38,11 @@ export function setupEventos({ seleccionados, editandoIdxRef, mostrarRegistros, 
     if (e.key === 'Escape' && window.modals && window.modals.abrirModal) {
       window.modals.abrirModal();
     }
+    // Ctrl+E abre estadísticas de hoy
+    if ((e.ctrlKey || e.metaKey) && e.key === 'e' && window.estadisticas && window.estadisticas.abrirModalEstadisticas) {
+      e.preventDefault();
+      window.estadisticas.abrirModalEstadisticas();
+    }
     // Delete/Backspace elimina seleccionados (si no está en input/textarea)
     if ((e.key === 'Delete' || e.key === 'Backspace') && seleccionados.size > 0 && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
       eliminarSeleccionados(seleccionados, mostrarRegistros);
