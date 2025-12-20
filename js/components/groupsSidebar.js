@@ -26,7 +26,7 @@ export function setupGroupsSidebar({ grupoSeleccionadoRef, mostrarRegistros }) {
       sidebar.classList.add('translate-x-0');
       if (main) {
         main.classList.remove('mr-auto');
-        main.classList.add('ml-auto', 'mr-[calc(280px+20px)]');
+        main.classList.add('ml-auto', 'mr-[calc(280px)]');
       }
       if (showSidebarBtn) {
         showSidebarBtn.classList.add('hidden');
@@ -36,7 +36,7 @@ export function setupGroupsSidebar({ grupoSeleccionadoRef, mostrarRegistros }) {
       sidebar.classList.remove('translate-x-0');
       sidebar.classList.add('translate-x-full');
       if (main) {
-        main.classList.remove('mr-[calc(280px+20px)]');
+        main.classList.remove('mr-[calc(280px)]');
         main.classList.add('mx-auto');
       }
       if (showSidebarBtn) {

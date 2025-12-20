@@ -16,9 +16,13 @@
 
 /* Estilos personalizados */
 @layer components {
-  /* Estilos para registro-item que dependen de JS */
+  /* Estilos para registro-item que dependen de JS (tabla) */
   .registro-item.selected {
     @apply bg-gray-200;
+  }
+  
+  .registro-item:hover:not(.selected) {
+    @apply bg-gray-50;
   }
   
   @media (hover: hover) and (pointer: fine) {
@@ -29,14 +33,7 @@
   
   @media (hover: none) and (pointer: coarse) {
     .registro-item.selected {
-      @apply bg-gray-100 relative;
-    }
-    .registro-item.selected::after {
-      content: '';
-      @apply absolute left-0 top-0 bottom-0 w-1 bg-black;
-    }
-    .dark .registro-item.selected::after {
-      @apply bg-white;
+      @apply bg-gray-100;
     }
   }
   
@@ -48,18 +45,10 @@
     @apply bg-transparent text-white;
   }
   
-  .dark .registro-item:hover {
+  .dark .registro-item:hover:not(.selected) {
     @apply bg-gray-900;
   }
   
-  /* Estilos para #resumen */
-  #resumen {
-    @apply text-left max-w-[600px] mx-auto bg-white p-2.5 rounded border border-black shadow-[0_2px_8px_rgba(0,0,0,0.08)] max-h-[350px] overflow-auto flex flex-col overscroll-none touch-pan-y;
-  }
-  
-  .dark #resumen {
-    @apply bg-black text-white border-white shadow-[0_2px_8px_rgba(255,255,255,0.1)];
-  }
   
   /* Estilos para suma-seleccion */
   #suma-seleccion {

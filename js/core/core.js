@@ -21,15 +21,41 @@ function mostrarRegistros() {
                  window.sessionData.editandoIdxRef.value : 
                  window.sessionData.editandoIdx;
 
+  html += `<table class="w-full border-collapse">
+    <thead>
+      <tr class="border-b border-gray-300 dark:border-gray-600">
+        <th class="text-left p-2 font-semibold">Fecha</th>
+        <th class="text-left p-2 font-semibold">Actividad</th>
+        <th class="text-left p-2 font-semibold">Inicio</th>
+        <th class="text-left p-2 font-semibold">Fin</th>
+        <th class="text-left p-2 font-semibold">Duración</th>
+      </tr>
+    </thead>
+    <tbody>`;
+
   // Mostrar en orden inverso (más recientes primero)
   registrosConIndices.slice().reverse().forEach(({ registro: r, idx: i }) => {
     const selected = window.sessionData.seleccionados.has(i) ? 'selected' : '';
-    html += `<p class="registro-item cursor-pointer transition-colors ${selected}" data-idx="${i}">
-      ${idxEdit === i ? 
-        window.formEditar.editarForm(r, i) : 
-        `<span><b>${r.fecha}</b> | ${r.actividad} | </span> <span>${r.inicio} - ${r.fin} (${r.duracion})</span>`}
-    </p>`;
+    
+    if (idxEdit === i) {
+      // Si está en modo edición, mostrar el formulario ocupando todas las columnas
+      html += `<tr class="registro-item ${selected}" data-idx="${i}">
+        <td colspan="5" class="p-2">
+          ${window.formEditar.editarForm(r, i)}
+        </td>
+      </tr>`;
+    } else {
+      html += `<tr class="registro-item cursor-pointer transition-colors ${selected}" data-idx="${i}">
+        <td class="p-2 border-b border-gray-200 dark:border-gray-700"><b>${r.fecha}</b></td>
+        <td class="p-2 border-b border-gray-200 dark:border-gray-700">${r.actividad}</td>
+        <td class="p-2 border-b border-gray-200 dark:border-gray-700">${r.inicio}</td>
+        <td class="p-2 border-b border-gray-200 dark:border-gray-700">${r.fin}</td>
+        <td class="p-2 border-b border-gray-200 dark:border-gray-700">${r.duracion}</td>
+      </tr>`;
+    }
   });
+  
+  html += `</tbody></table>`;
   
   document.getElementById('resumen').innerHTML = html;
 
